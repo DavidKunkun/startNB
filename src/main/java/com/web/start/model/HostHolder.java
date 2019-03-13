@@ -3,7 +3,7 @@ package com.web.start.model;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by kun.demo1 on 2018/7/3.
+ * Created by kun
  */
 @Component
 public class HostHolder {

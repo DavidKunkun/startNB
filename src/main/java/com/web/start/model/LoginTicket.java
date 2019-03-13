@@ -3,7 +3,7 @@ package com.web.start.model;
 import java.util.Date;
 
 /**
- * Created by kun.demo1 on 2016/7/3.
+ * Created by kun.
  */
 public class LoginTicket {
     private int id;
