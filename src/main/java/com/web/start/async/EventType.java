@@ -1,7 +1,7 @@
 package com.web.start.async;
 
 /**
- * Created by web.start on 2016/7/30.
+ * Created by web.start
  */
 public enum EventType {
     LIKE(0),

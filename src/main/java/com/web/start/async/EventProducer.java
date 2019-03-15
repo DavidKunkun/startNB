@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by web.start on 2016/7/30.
+ * Created by web.start
  */
 @Service
 public class EventProducer {

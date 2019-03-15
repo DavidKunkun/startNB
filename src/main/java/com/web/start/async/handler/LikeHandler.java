@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by web.start on 2016/7/30.
+ * Created by web.start
  */
 @Component
 public class LikeHandler implements EventHandler {
