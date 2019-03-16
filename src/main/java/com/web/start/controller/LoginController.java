@@ -1,6 +1,9 @@
 package com.web.start.controller;
 
 
+import com.web.start.async.EventModel;
+import com.web.start.async.EventProducer;
+import com.web.start.async.EventType;
 import com.web.start.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -26,40 +29,42 @@ public class LoginController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    EventProducer eventProducer;
    //用户注册页面
-    @RequestMapping(path = {"/reg/"}, method = {RequestMethod.POST})
-    public String reg(Model model, @RequestParam("username") String username,
-                      @RequestParam("password") String password,
-                      @RequestParam("next") String next,
-                      @RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
-                      HttpServletResponse response) {
-        try {
-            Map<String, Object> map = userService.register(username, password);
-            if (map.containsKey("ticket")) {
-                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
-                cookie.setPath("/");
-                if (rememberme) {
-                    cookie.setMaxAge(3600*24*5);
-                }
-                response.addCookie(cookie);
-                if (StringUtils.isNotBlank(next)) {
-                    return "redirect:" + next;
-                }
-                return "redirect:/";
-            } else {
-                model.addAttribute("msg", map.get("msg"));
-                return "login";
-            }
+   @RequestMapping(path = {"/reg/"}, method = {RequestMethod.POST})
+   public String reg(Model model, @RequestParam("username") String username,
+                     @RequestParam("password") String password,
+                     @RequestParam("next") String next,
+                     @RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
+                     HttpServletResponse response) {
+       try {
+           Map<String, Object> map = userService.register(username, password);
+           if (map.containsKey("ticket")) {
+               Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+               cookie.setPath("/");
+               if (rememberme) {
+                   cookie.setMaxAge(3600*24*5);
+               }
+               response.addCookie(cookie);
+               if (StringUtils.isNotBlank(next)) {
+                   return "redirect:" + next;
+               }
+               return "redirect:/";
+           } else {
+               model.addAttribute("msg", map.get("msg"));
+               return "login";
+           }
 
-        } catch (Exception e) {
-            logger.error("注册异常" + e.getMessage());
-            model.addAttribute("msg", "服务器错误");
-            return "login";
-        }
-    }
+       } catch (Exception e) {
+           logger.error("注册异常" + e.getMessage());
+           model.addAttribute("msg", "服务器错误");
+           return "login";
+       }
+   }
 
     @RequestMapping(path = {"/reglogin"}, method = {RequestMethod.GET})
-    public String regloginPage(Model model, @RequestParam(value = "next", defaultValue = "",required = false) String next) {
+    public String regloginPage(Model model, @RequestParam(value = "next", required = false) String next) {
         model.addAttribute("next", next);
         return "login";
     }
@@ -79,6 +84,11 @@ public class LoginController {
                     cookie.setMaxAge(3600*24*5);
                 }
                 response.addCookie(cookie);
+
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setExt("username", username).setExt("email", "xuzekunjlu@163.com")
+                        .setActorId((int)map.get("userId")));
+
                 if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next;
                 }
@@ -101,3 +111,4 @@ public class LoginController {
     }
 
 }
+
