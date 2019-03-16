@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Created by 续泽坤 //
+ * Created by 续泽坤 //邮件验证
  */
 @Service
 public class MailSender implements InitializingBean {
@@ -31,7 +31,7 @@ public class MailSender implements InitializingBean {
                                         String template, Map<String, Object> model) {
         try {
             String nick = MimeUtility.encodeText("极客");
-            InternetAddress from = new InternetAddress(nick + "<1836849236@qq.com>");
+            InternetAddress from = new InternetAddress(nick + "<xuzekunjlu@163.com>");
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             String result = VelocityEngineUtils
@@ -51,9 +51,9 @@ public class MailSender implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         mailSender = new JavaMailSenderImpl();
-        mailSender.setUsername("1836849236@qq.com");
-        mailSender.setPassword("NKnk123");
-        mailSender.setHost("smtp.exmail.qq.com");
+        mailSender.setUsername("xuzekunjlu@163.com");
+        mailSender.setPassword("wangyi1997");
+        mailSender.setHost("smtp.163.com");
         //mailSender.setHost("smtp.qq.com");
         mailSender.setPort(465);
         mailSender.setProtocol("smtps");

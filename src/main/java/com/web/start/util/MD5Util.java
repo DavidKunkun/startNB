@@ -9,12 +9,13 @@ import java.util.Map;
 
 /**
  * Created by 续泽坤
+ * 一些用的工具类，Json转码
  * MD5用户密码加密
  */
 public class MD5Util {
     private static final Logger logger = LoggerFactory.getLogger(MD5Util.class);
-    public static int ANONYMOUS_USERID = 3;
-    public static int SYSTEM_USERID = 4;
+    public static int ANONYMOUS_USERID = 3;//匿名用户用于调试
+    public static int SYSTEM_USERID = 4;//单独设一个系统用户用于系统提示
 
     public static String getJSONString(int code) {
         JSONObject json = new JSONObject();

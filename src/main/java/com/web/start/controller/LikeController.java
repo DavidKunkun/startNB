@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by web.start
+ * Created by 续泽坤，用于评论的踩赞
  */
 @Controller
 public class LikeController {
